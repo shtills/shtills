@@ -1,31 +1,27 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Мой Сайт</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Судебные заседания</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Добро пожаловать на мой сайт</h1>
-    <p>Сделано с ❤️ и HTML + CSS</p>
-  </header>
-
-  <main>
-    <section>
-      <h2>Обо мне</h2>
-      <p>Это простой сайт, который я залил на GitHub Pages.</p>
-    </section>
-    <section>
-      <h2>Контакты</h2>
-      <p>Напиши мне в Telegram: @your_username</p>
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; 2025 — Все права защищены</p>
-  </footer>
+  <div class="container">
+    <h1>Добро пожаловать</h1>
+    <div id="auth-section">
+      <input type="text" id="username" placeholder="Имя пользователя" />
+      <input type="password" id="password" placeholder="Пароль" />
+      <button onclick="register()">Регистрация</button>
+      <button onclick="login()">Вход</button>
+    </div>
+    <div id="admin-section" style="display:none;">
+      <h2 id="role-label">Личный кабинет</h2>
+      <p id="admin-info"></p>
+      <button onclick="logout()">Выйти</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
