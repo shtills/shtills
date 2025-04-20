@@ -1,18 +1,18 @@
 
-function showLogin() {
-    document.getElementById('auth').classList.remove('hidden');
-}
-function showRegister() {
-    alert("Регистрация временно недоступна.");
-}
 function login() {
     const login = document.getElementById('login').value;
     const password = document.getElementById('password').value;
     if (login === 'Shtill' && password === 'V043Hkir4qP9k8pJ') {
         document.getElementById('auth').classList.add('hidden');
-        document.getElementById('adminPanel').classList.remove('hidden');
+        document.getElementById('mainContent').classList.remove('hidden');
+        showSection('admin');
     } else {
-        document.getElementById('auth').classList.add('hidden');
-        document.getElementById('userPanel').classList.remove('hidden');
+        alert("Неверный логин или пароль");
     }
+}
+
+function showSection(sectionId) {
+    const sections = document.querySelectorAll('.panel-section');
+    sections.forEach(s => s.classList.add('hidden'));
+    document.getElementById(sectionId).classList.remove('hidden');
 }
