@@ -1,23 +1,76 @@
 
 body {
-    font-family: sans-serif;
-    background: #f3f3f3;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f7fa;
     margin: 0;
     padding: 0;
+    color: #333;
+}
+
+header {
+    background-color: #2f3542;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.container {
+    max-width: 500px;
+    margin: 80px auto;
+    padding: 40px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
     text-align: center;
 }
-.menu {
-    padding: 50px;
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 16px;
 }
-.buttons a {
-    display: inline-block;
-    margin: 10px;
-    padding: 15px 25px;
-    background-color: #3a7bd5;
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #1e90ff;
+    border: none;
     color: white;
-    text-decoration: none;
-    border-radius: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
 }
+
+button:hover {
+    background-color: #0077e6;
+}
+
+.admin-panel, .user-panel {
+    padding: 30px;
+    max-width: 800px;
+    margin: 50px auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.05);
+}
+
+.admin-panel ul {
+    list-style: none;
+    padding: 0;
+}
+
+.admin-panel li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
 .hidden {
     display: none;
 }

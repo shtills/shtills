@@ -4,22 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Судебная система</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="public/style.css">
 </head>
 <body>
-    <div class="menu">
-        <h1>Добро пожаловать</h1>
-        <div class="buttons">
-            <a href="#" onclick="showLogin()">Авторизация</a>
-            <a href="#" onclick="showRegister()">Зарегистрироваться</a>
-        </div>
-    </div>
-    <div id="auth" class="hidden">
+    <header>Судебная система</header>
+    <div class="container" id="auth">
+        <h2>Авторизация</h2>
         <input type="text" id="login" placeholder="Логин">
         <input type="password" id="password" placeholder="Пароль">
         <button onclick="login()">Войти</button>
     </div>
-    <div id="adminPanel" class="hidden">
+    <div id="adminPanel" class="admin-panel hidden">
         <h2>Панель администратора</h2>
         <ul>
             <li>Управление администрацией</li>
@@ -27,10 +22,10 @@
             <li>Настройки</li>
         </ul>
     </div>
-    <div id="userPanel" class="hidden">
+    <div id="userPanel" class="user-panel hidden">
         <h2>Панель пользователя</h2>
         <p>Суды в разработке...</p>
     </div>
-    <script src="script.js"></script>
+    <script src="src/script.js"></script>
 </body>
 </html>
