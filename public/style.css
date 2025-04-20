@@ -1,0 +1,23 @@
+
+body {
+    font-family: sans-serif;
+    background: #f3f3f3;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+.menu {
+    padding: 50px;
+}
+.buttons a {
+    display: inline-block;
+    margin: 10px;
+    padding: 15px 25px;
+    background-color: #3a7bd5;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+}
+.hidden {
+    display: none;
+}

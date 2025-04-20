@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Судебная система</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="menu">
+        <h1>Добро пожаловать</h1>
+        <div class="buttons">
+            <a href="#" onclick="showLogin()">Авторизация</a>
+            <a href="#" onclick="showRegister()">Зарегистрироваться</a>
+        </div>
+    </div>
+    <div id="auth" class="hidden">
+        <input type="text" id="login" placeholder="Логин">
+        <input type="password" id="password" placeholder="Пароль">
+        <button onclick="login()">Войти</button>
+    </div>
+    <div id="adminPanel" class="hidden">
+        <h2>Панель администратора</h2>
+        <ul>
+            <li>Управление администрацией</li>
+            <li>Управление пользователями</li>
+            <li>Настройки</li>
+        </ul>
+    </div>
+    <div id="userPanel" class="hidden">
+        <h2>Панель пользователя</h2>
+        <p>Суды в разработке...</p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
