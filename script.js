@@ -1,45 +1,43 @@
 const tests = {
   adequacy: {
-    name: "Тест на адекватность",
     questions: [
-      "Как вы обычно реагируете на конфликтные ситуации?",
-      "Что для вас важнее — справедливость или личная выгода?",
-      "Способны ли вы признать свою ошибку перед другими?",
-      "Насколько важно для вас следовать установленным правилам?",
-      "Как вы относитесь к командной работе?"
+      "Как вы реагируете на конфликтные ситуации?",
+      "Что для вас важнее?",
+      "Можете ли признать свою ошибку?",
+      "Насколько важно соблюдать правила?",
+      "Как относитесь к командной работе?"
     ],
     answers: [
       ["Спокойно", "Агрессивно", "Избегаю", "Провоцирую"],
-      ["Справедливость", "Личная выгода", "Зависит от ситуации", "Ничего не важно"],
-      ["Да", "Нет", "Затрудняюсь", "Скрываю"],
-      ["Очень важно", "Малозначимо", "Зависит от ситуации", "Не важно"],
+      ["Справедливость", "Выгода", "Зависит от ситуации", "Не важно"],
+      ["Да", "Нет", "Иногда", "Скрываю"],
+      ["Очень важно", "Иногда важно", "Неважно", "Пренебрегаю"],
       ["Положительно", "Нейтрально", "Негативно", "Избегаю"]
     ],
     results: [
-      { min: 5, max: 8, text: "Низкая адекватность. Требуется серьезная работа над собой." },
-      { min: 9, max: 12, text: "Средний уровень адекватности. Иногда требуется контроль за эмоциями." },
+      { min: 5, max: 8, text: "Низкая адекватность. Требуется работа над собой." },
+      { min: 9, max: 12, text: "Средний уровень. Иногда требуется контроль за эмоциями." },
       { min: 13, max: 15, text: "Высокая адекватность. Хорошая саморегуляция." }
     ]
   },
   depression: {
-    name: "Тест на уровень депрессии",
     questions: [
-      "Как часто вы чувствуете усталость без причины?",
-      "Трудно ли вам радоваться тому, что радовало раньше?",
-      "Есть ли у вас нарушения сна?",
-      "Часто ли вы испытываете чувство вины или никчемности?",
-      "Как вы оцениваете свое настроение в течение дня?"
+      "Как часто чувствуете усталость?",
+      "Радуют ли вас мелочи?",
+      "Есть ли проблемы со сном?",
+      "Часто ли чувствуете вину?",
+      "Как настроение в течение дня?"
     ],
     answers: [
-      ["Очень редко", "Иногда", "Часто", "Постоянно"],
-      ["Нет", "Иногда", "Часто", "Постоянно"],
-      ["Нет", "Иногда", "Часто", "Постоянно"],
+      ["Редко", "Иногда", "Часто", "Постоянно"],
+      ["Да", "Иногда", "Редко", "Вообще нет"],
+      ["Нет", "Иногда", "Часто", "Постоянные проблемы"],
       ["Нет", "Иногда", "Часто", "Постоянно"],
       ["Хорошее", "Среднее", "Плохое", "Очень плохое"]
     ],
     results: [
-      { min: 5, max: 8, text: "Высокая вероятность депрессивного состояния. Требуется помощь специалистов." },
-      { min: 9, max: 12, text: "Возможны начальные признаки депрессивных состояний." },
+      { min: 5, max: 8, text: "Высокая вероятность депрессии. Нужна помощь специалиста." },
+      { min: 9, max: 12, text: "Есть признаки депрессии. Нужно обратить внимание." },
       { min: 13, max: 15, text: "Нет признаков депрессии. Эмоционально устойчивы." }
     ]
   }
@@ -48,23 +46,24 @@ const tests = {
 let currentTest = null;
 let score = 0;
 
-function startTest(testKey) {
-  currentTest = tests[testKey];
-  document.getElementById('test-selection').classList.add('hidden');
+function startTest(testName) {
+  currentTest = tests[testName];
+  score = 0;
+  document.getElementById('menu').classList.add('hidden');
   document.getElementById('test').classList.remove('hidden');
 
   const questionsDiv = document.getElementById('questions');
-  questionsDiv.innerHTML = "";
+  questionsDiv.innerHTML = '';
 
-  currentTest.questions.forEach((question, index) => {
+  currentTest.questions.forEach((q, idx) => {
     const div = document.createElement('div');
     div.classList.add('question');
-    div.innerHTML = `<p>${index + 1}. ${question}</p>`;
+    div.innerHTML = `<p>${q}</p>`;
 
-    currentTest.answers[index].forEach((answer, idx) => {
+    currentTest.answers[idx].forEach((ans, i) => {
       div.innerHTML += `
         <label>
-          <input type="radio" name="q${index}" value="${idx + 1}" required> ${answer}
+          <input type="radio" name="q${idx}" value="${i + 1}" required> ${ans}
         </label><br>
       `;
     });
@@ -72,14 +71,13 @@ function startTest(testKey) {
     questionsDiv.appendChild(div);
   });
 
-  document.getElementById('testForm').onsubmit = function(event) {
-    event.preventDefault();
+  document.getElementById('testForm').onsubmit = function(e) {
+    e.preventDefault();
     calculateResult();
   };
 }
 
 function calculateResult() {
-  score = 0;
   for (let i = 0; i < currentTest.questions.length; i++) {
     const radios = document.getElementsByName(`q${i}`);
     for (const radio of radios) {
@@ -96,9 +94,9 @@ function showResult() {
   document.getElementById('result').classList.remove('hidden');
 
   let resultText = "";
-  for (const res of currentTest.results) {
-    if (score >= res.min && score <= res.max) {
-      resultText = res.text;
+  for (const r of currentTest.results) {
+    if (score >= r.min && score <= r.max) {
+      resultText = r.text;
       break;
     }
   }
@@ -108,11 +106,11 @@ function showResult() {
 }
 
 function editResult() {
-  const editedText = document.getElementById('customResult').value;
-  document.getElementById('score').innerText = `Вы набрали ${score} баллов. ${editedText}`;
+  const edited = document.getElementById('customResult').value;
+  document.getElementById('score').innerText = `Вы набрали ${score} баллов. ${edited}`;
 }
 
 function resetTest() {
   document.getElementById('result').classList.add('hidden');
-  document.getElementById('test-selection').classList.remove('hidden');
+  document.getElementById('menu').classList.remove('hidden');
 }
