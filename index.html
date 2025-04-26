@@ -2,43 +2,46 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Психологические тесты</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>
-  <h1>Психологические тесты</h1>
-</header>
+<div class="container">
+  <header>
+    <h1>Психологические тесты</h1>
+  </header>
 
-<main>
-  <section id="test-selection">
+  <section id="menu">
     <h2>Выберите тест</h2>
-    <button onclick="startTest('adequacy')">Тест на адекватность</button>
-    <button onclick="startTest('depression')">Тест на уровень депрессии</button>
+    <div class="buttons">
+      <button onclick="startTest('adequacy')">Тест на адекватность</button>
+      <button onclick="startTest('depression')">Тест на депрессию</button>
+    </div>
   </section>
 
   <section id="test" class="hidden">
     <form id="testForm">
       <div id="questions"></div>
-      <button type="submit">Завершить тест</button>
+      <button type="submit" class="submit-btn">Завершить тест</button>
     </form>
   </section>
 
   <section id="result" class="hidden">
-    <h2>Результат теста</h2>
+    <h2>Результат</h2>
     <p id="score"></p>
     <textarea id="customResult" rows="5"></textarea>
-    <br>
-    <button onclick="editResult()">Редактировать вывод</button>
-    <button onclick="resetTest()">Пройти другой тест</button>
+    <div class="buttons">
+      <button onclick="editResult()">Редактировать вывод</button>
+      <button onclick="resetTest()">Вернуться к меню</button>
+    </div>
   </section>
-</main>
 
-<footer>
-  <p>&copy; 2025 Психологические тесты | Разработано GPT</p>
-</footer>
+  <footer>
+    <p>© 2025 Психологические тесты</p>
+  </footer>
+</div>
 
 <script src="script.js"></script>
 </body>
