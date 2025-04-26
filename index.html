@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Психологический тест заключённого</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Тест на стабильность и депрессию</h1>
+</header>
+
+<main>
+  <form id="testForm">
+    <div class="question">
+      <p>1. Как вы обычно реагируете на конфликтные ситуации?</p>
+      <label><input type="radio" name="q1" value="1" required> Спокойно</label>
+      <label><input type="radio" name="q1" value="2"> Агрессивно</label>
+      <label><input type="radio" name="q1" value="3"> Избегаю</label>
+    </div>
+
+    <div class="question">
+      <p>2. Что для вас важнее — справедливость или личная выгода?</p>
+      <label><input type="radio" name="q2" value="1" required> Справедливость</label>
+      <label><input type="radio" name="q2" value="2"> Личная выгода</label>
+      <label><input type="radio" name="q2" value="3"> Зависит от ситуации</label>
+    </div>
+
+    <div class="question">
+      <p>3. Способны ли вы признать свою ошибку перед другими?</p>
+      <label><input type="radio" name="q3" value="1" required> Да</label>
+      <label><input type="radio" name="q3" value="2"> Нет</label>
+      <label><input type="radio" name="q3" value="3"> Затрудняюсь</label>
+    </div>
+
+    <div class="question">
+      <p>4. Насколько важно для вас следовать установленным правилам?</p>
+      <label><input type="radio" name="q4" value="1" required> Очень важно</label>
+      <label><input type="radio" name="q4" value="2"> Малозначимо</label>
+      <label><input type="radio" name="q4" value="3"> Зависит от ситуации</label>
+    </div>
+
+    <div class="question">
+      <p>5. Как вы относитесь к командной работе?</p>
+      <label><input type="radio" name="q5" value="1" required> Положительно</label>
+      <label><input type="radio" name="q5" value="2"> Нейтрально</label>
+      <label><input type="radio" name="q5" value="3"> Негативно</label>
+    </div>
+
+    <button type="submit">Завершить тест</button>
+  </form>
+
+  <div class="modal" id="nameModal">
+    <div class="modal-content">
+      <h2>Введите данные</h2>
+      <input type="text" id="yourName" placeholder="Ваше имя" required>
+      <input type="text" id="prisonerName" placeholder="Имя заключённого" required>
+      <button onclick="generateResult()">Готово</button>
+    </div>
+  </div>
+
+  <section id="result" class="hidden"></section>
+</main>
+
+<footer>
+  <p>&copy; 2025 Психологический тест | Разработано GPT</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
