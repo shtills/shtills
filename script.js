@@ -1,6 +1,6 @@
-
 const tests = {
   adequacy: {
+    name: "Тест на адекватность",
     questions: [
       "Как вы обычно реагируете на конфликтные ситуации?",
       "Что для вас важнее — справедливость или личная выгода?",
@@ -8,89 +8,111 @@ const tests = {
       "Насколько важно для вас следовать установленным правилам?",
       "Как вы относитесь к командной работе?"
     ],
-    result: function(score) {
-      if (score <= 8) return "Низкая адекватность. Требуется серьёзная работа над собой.";
-      if (score <= 12) return "Средний уровень адекватности. Иногда требуется контроль за эмоциями.";
-      return "Высокая адекватность. Хорошая саморегуляция.";
-    }
+    answers: [
+      ["Спокойно", "Агрессивно", "Избегаю", "Провоцирую"],
+      ["Справедливость", "Личная выгода", "Зависит от ситуации", "Ничего не важно"],
+      ["Да", "Нет", "Затрудняюсь", "Скрываю"],
+      ["Очень важно", "Малозначимо", "Зависит от ситуации", "Не важно"],
+      ["Положительно", "Нейтрально", "Негативно", "Избегаю"]
+    ],
+    results: [
+      { min: 5, max: 8, text: "Низкая адекватность. Требуется серьезная работа над собой." },
+      { min: 9, max: 12, text: "Средний уровень адекватности. Иногда требуется контроль за эмоциями." },
+      { min: 13, max: 15, text: "Высокая адекватность. Хорошая саморегуляция." }
+    ]
   },
   depression: {
+    name: "Тест на уровень депрессии",
     questions: [
-      "Как часто вы чувствуете усталость без видимой причины?",
-      "Насколько часто у вас плохое настроение?",
-      "Вы ощущаете потерю интереса к любимым делам?",
-      "Вы часто испытываете чувство вины или бесполезности?",
-      "Как часто вы чувствуете себя одиноким?"
+      "Как часто вы чувствуете усталость без причины?",
+      "Трудно ли вам радоваться тому, что радовало раньше?",
+      "Есть ли у вас нарушения сна?",
+      "Часто ли вы испытываете чувство вины или никчемности?",
+      "Как вы оцениваете свое настроение в течение дня?"
     ],
-    result: function(score) {
-      if (score <= 8) return "Высокая вероятность депрессивного состояния. Требуется помощь специалиста.";
-      if (score <= 12) return "Возможны начальные признаки депрессивных состояний.";
-      return "Нет признаков депрессии. Эмоционально устойчивы.";
-    }
+    answers: [
+      ["Очень редко", "Иногда", "Часто", "Постоянно"],
+      ["Нет", "Иногда", "Часто", "Постоянно"],
+      ["Нет", "Иногда", "Часто", "Постоянно"],
+      ["Нет", "Иногда", "Часто", "Постоянно"],
+      ["Хорошее", "Среднее", "Плохое", "Очень плохое"]
+    ],
+    results: [
+      { min: 5, max: 8, text: "Высокая вероятность депрессивного состояния. Требуется помощь специалистов." },
+      { min: 9, max: 12, text: "Возможны начальные признаки депрессивных состояний." },
+      { min: 13, max: 15, text: "Нет признаков депрессии. Эмоционально устойчивы." }
+    ]
   }
 };
 
 let currentTest = null;
-let totalScore = 0;
+let score = 0;
 
-function startTest(testName) {
-  currentTest = tests[testName];
-  document.querySelector(".test-selection").classList.add("hidden");
-  document.getElementById("testForm").classList.remove("hidden");
-  renderQuestions();
-}
+function startTest(testKey) {
+  currentTest = tests[testKey];
+  document.getElementById('test-selection').classList.add('hidden');
+  document.getElementById('test').classList.remove('hidden');
 
-function renderQuestions() {
-  const container = document.getElementById("questions");
-  container.innerHTML = "";
+  const questionsDiv = document.getElementById('questions');
+  questionsDiv.innerHTML = "";
+
   currentTest.questions.forEach((question, index) => {
-    const div = document.createElement("div");
-    div.innerHTML = \`
-      <p>\${index + 1}. \${question}</p>
-      <label><input type="radio" name="q\${index}" value="1" required> Очень редко</label>
-      <label><input type="radio" name="q\${index}" value="2"> Иногда</label>
-      <label><input type="radio" name="q\${index}" value="3"> Часто</label>
-      <label><input type="radio" name="q\${index}" value="4"> Постоянно</label>
-    \`;
-    container.appendChild(div);
+    const div = document.createElement('div');
+    div.classList.add('question');
+    div.innerHTML = `<p>${index + 1}. ${question}</p>`;
+
+    currentTest.answers[index].forEach((answer, idx) => {
+      div.innerHTML += `
+        <label>
+          <input type="radio" name="q${index}" value="${idx + 1}" required> ${answer}
+        </label><br>
+      `;
+    });
+
+    questionsDiv.appendChild(div);
   });
 
-  document.getElementById("testForm").onsubmit = function(e) {
-    e.preventDefault();
-    calculateScore();
+  document.getElementById('testForm').onsubmit = function(event) {
+    event.preventDefault();
+    calculateResult();
   };
 }
 
-function calculateScore() {
-  totalScore = 0;
+function calculateResult() {
+  score = 0;
   for (let i = 0; i < currentTest.questions.length; i++) {
-    const answer = document.querySelector(\`input[name="q\${i}"]:checked\`);
-    if (answer) totalScore += parseInt(answer.value);
+    const radios = document.getElementsByName(`q${i}`);
+    for (const radio of radios) {
+      if (radio.checked) {
+        score += parseInt(radio.value);
+      }
+    }
   }
-  document.getElementById("testForm").classList.add("hidden");
-  document.getElementById("resultSection").classList.remove("hidden");
+  showResult();
 }
 
-function finalizeResult() {
-  const firstName = document.getElementById("firstName").value;
-  const lastName = document.getElementById("lastName").value;
-  const examiner = document.getElementById("examiner").value;
-  const baseResult = currentTest.result(totalScore);
+function showResult() {
+  document.getElementById('test').classList.add('hidden');
+  document.getElementById('result').classList.remove('hidden');
 
-  const resultText = \`
-    Имя: \${firstName}<br>
-    Фамилия: \${lastName}<br>
-    Проводивший тест: \${examiner}<br>
-    Баллы: \${totalScore}<br>
-    Вывод: \${baseResult}
-  \`;
+  let resultText = "";
+  for (const res of currentTest.results) {
+    if (score >= res.min && score <= res.max) {
+      resultText = res.text;
+      break;
+    }
+  }
 
-  document.getElementById("resultText").innerHTML = resultText;
+  document.getElementById('score').innerText = `Вы набрали ${score} баллов. ${resultText}`;
+  document.getElementById('customResult').value = resultText;
 }
 
 function editResult() {
-  const editable = prompt("Введите исправленный текст:");
-  if (editable !== null) {
-    document.getElementById("resultText").innerHTML = editable.replace(/\n/g, "<br>");
-  }
+  const editedText = document.getElementById('customResult').value;
+  document.getElementById('score').innerText = `Вы набрали ${score} баллов. ${editedText}`;
+}
+
+function resetTest() {
+  document.getElementById('result').classList.add('hidden');
+  document.getElementById('test-selection').classList.remove('hidden');
 }
