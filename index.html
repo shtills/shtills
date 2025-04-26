@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Психологические тесты</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Психологические тесты</h1>
+  </header>
+
+  <main>
+    <section class="test-selection">
+      <button onclick="startTest('adequacy')">Тест на адекватность</button>
+      <button onclick="startTest('depression')">Тест на уровень депрессии</button>
+    </section>
+
+    <form id="testForm" class="hidden">
+      <div id="questions"></div>
+      <button type="submit">Завершить тест</button>
+    </form>
+
+    <div id="resultSection" class="hidden">
+      <input type="text" id="firstName" placeholder="Имя" required>
+      <input type="text" id="lastName" placeholder="Фамилия" required>
+      <input type="text" id="examiner" placeholder="Проводивший тест" required>
+      <button onclick="finalizeResult()">Сохранить результат</button>
+      <div id="resultText"></div>
+      <button onclick="editResult()">Редактировать результат</button>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Психологический тест | Разработано GPT</p>
+  </footer>
+
+<script src="script.js"></script>
+</body>
+</html>
