@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -8,34 +7,38 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Психологические тесты</h1>
-  </header>
 
-  <main>
-    <section class="test-selection">
-      <button onclick="startTest('adequacy')">Тест на адекватность</button>
-      <button onclick="startTest('depression')">Тест на уровень депрессии</button>
-    </section>
+<header>
+  <h1>Психологические тесты</h1>
+</header>
 
-    <form id="testForm" class="hidden">
+<main>
+  <section id="test-selection">
+    <h2>Выберите тест</h2>
+    <button onclick="startTest('adequacy')">Тест на адекватность</button>
+    <button onclick="startTest('depression')">Тест на уровень депрессии</button>
+  </section>
+
+  <section id="test" class="hidden">
+    <form id="testForm">
       <div id="questions"></div>
       <button type="submit">Завершить тест</button>
     </form>
+  </section>
 
-    <div id="resultSection" class="hidden">
-      <input type="text" id="firstName" placeholder="Имя" required>
-      <input type="text" id="lastName" placeholder="Фамилия" required>
-      <input type="text" id="examiner" placeholder="Проводивший тест" required>
-      <button onclick="finalizeResult()">Сохранить результат</button>
-      <div id="resultText"></div>
-      <button onclick="editResult()">Редактировать результат</button>
-    </div>
-  </main>
+  <section id="result" class="hidden">
+    <h2>Результат теста</h2>
+    <p id="score"></p>
+    <textarea id="customResult" rows="5"></textarea>
+    <br>
+    <button onclick="editResult()">Редактировать вывод</button>
+    <button onclick="resetTest()">Пройти другой тест</button>
+  </section>
+</main>
 
-  <footer>
-    <p>&copy; 2025 Психологический тест | Разработано GPT</p>
-  </footer>
+<footer>
+  <p>&copy; 2025 Психологические тесты | Разработано GPT</p>
+</footer>
 
 <script src="script.js"></script>
 </body>
